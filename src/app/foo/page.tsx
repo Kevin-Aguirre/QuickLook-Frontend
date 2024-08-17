@@ -1,7 +1,7 @@
 export default function Page() {
   return (
-    <div>
-      root directory
+    <div className="font-mono">
+      foo
     </div>
   )
 }
