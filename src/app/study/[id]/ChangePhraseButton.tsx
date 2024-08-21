@@ -22,7 +22,7 @@ const ChangePhraseButton : React.FC<ChangePhraseButtonProps> = ({phraseIndex, se
 
     return (
         
-        <button className="bg-red-200 h-full px-2 text-3xl text-white" onClick={handleClick}>
+        <button className="h-full px-2 text-3xl text-white" onClick={handleClick}>
             <strong>
                 {
                     increase
