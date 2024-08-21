@@ -1,12 +1,15 @@
 "use client"
-
-import EmptyNavbar from "@/components/EmptyNavbar"
+import Loading from "@/components/Loading"
+import Navbar from "@/components/Navbar"
 import DashboardBody from "./DashboardBody"
 import React, { useState, useEffect } from "react"
 import { PhraseSet, User } from "@/lib/interfaces"
+import { useRouter } from "next/navigation"
 
 
 const UserComponent: React.FC = () => {
+  const router = useRouter();
+
   const [user, setUser] = useState<User | null>(null);
   const [sets, setSets] = useState<PhraseSet[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -14,12 +17,21 @@ const UserComponent: React.FC = () => {
 
   const fetchUser = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/v1/user/1");     
+      const userToken = localStorage.getItem('token')
+
+      console.log("user token: ", userToken);
+      
+
+      if (!userToken) {
+        router.replace("/login")
+        return;
+      }
+
+      const response = await fetch(`http://localhost:8080/api/v1/user/${userToken}`);     
       
       if (!response.ok) {
         throw new Error("failed to fetch user data")
       }
-
       
       const data: User = await response.json();
       setUser(data);
@@ -28,13 +40,12 @@ const UserComponent: React.FC = () => {
     } finally {
       setLoading(false)
     }
-
   };
 
   useEffect(() => {
     const fetchSets = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/v1/set/1`)
+        const response = await fetch(`http://localhost:8080/api/v1/set/${localStorage.getItem('token')}`)
 
         // console.log(data);
         if (!response.ok) {
@@ -56,7 +67,7 @@ const UserComponent: React.FC = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>
+    return <Loading/>
   }
 
   if (error) {
@@ -65,7 +76,7 @@ const UserComponent: React.FC = () => {
 
   return (
     <div>
-      <EmptyNavbar />
+      <Navbar />
       <DashboardBody
         user={user}
         sets={user?.phraseSets || []} // Provide an empty array if `phraseSets` is null or undefined

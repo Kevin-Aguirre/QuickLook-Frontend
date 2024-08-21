@@ -10,9 +10,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  
+
   return (
     <html lang="en">
-      <body className='h-screen'>
+      <body className='h-screen bg-indigo-950'>
         {children}
       </body>
     </html>

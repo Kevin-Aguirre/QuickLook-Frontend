@@ -1,5 +1,9 @@
+"use client"
+import React from "react";
 import SetPreview from "./SetPreview";
 import { User, PhraseSet, newPhraseSet} from "@/lib/interfaces";
+import AddSetModal from "./AddSetModal"
+
 
 interface DashboardBodyProps {
     sets?: PhraseSet[] 
@@ -8,6 +12,16 @@ interface DashboardBodyProps {
 }
 
 const DashboardBody : React.FC<DashboardBodyProps> = ({sets, user, fetchUser}) => {    
+    const [isAddSetModalOpen, setIsAddSetModalOpen] = React.useState<boolean>(false);
+
+    const handleOpen = () => {
+        setIsAddSetModalOpen(true)
+    }
+
+    const handleClose = () => {
+        setIsAddSetModalOpen(false)
+    }
+
     const setElements = sets?.map((set) => (
         <SetPreview
             set={set}
@@ -15,12 +29,10 @@ const DashboardBody : React.FC<DashboardBodyProps> = ({sets, user, fetchUser}) =
         />
     ));
 
-    const handleAddSet = async () => {
-        console.log(user);
-
+    const handleAddSet = async (newSetName: string) => {
         const pleaseAddMe = {
-            phraseSetName: "asd",
-            userId: 1
+            phraseSetName: newSetName,
+            userId: localStorage.getItem('token')
         }
 
         const res = await fetch("http://localhost:8080/api/v1/set", {
@@ -33,6 +45,7 @@ const DashboardBody : React.FC<DashboardBodyProps> = ({sets, user, fetchUser}) =
 
         if (res.ok) {
             alert('successfully added set')
+            fetchUser()
         } else {
             alert('failed')
         }
@@ -40,23 +53,39 @@ const DashboardBody : React.FC<DashboardBodyProps> = ({sets, user, fetchUser}) =
     }
 
     console.log(setElements);
+
+
     
 
     return (
         <div className="m-8">
-            <div className="flex flex-row justify-between">
-                <div className="text-4xl m-2">
+            <div className="flex flex-row justify-between items-center">
+                <div className="text-white font-bold    text-6xl m-2">
                     Sets
                 </div>
                 <button 
-                    className="bg-red-200 px-6 m-2 rounded"
-                    onClick={handleAddSet}
+                    className="bg-blue-300 px-6 py-6 my-2 rounded text-3xl font-bold "
+                    onClick={handleOpen}
                 >
                     Create New Set
                 </button>
             </div>
             <hr></hr>
-            {setElements?.length > 0 ? setElements : <p>No sets found bro.</p>}
+            {
+                setElements?.length > 0 
+                ? 
+                setElements 
+                : 
+                <div className="w-full bg-red-500 text-white font-bold text-5xl text-center rounded py-6 my-4">
+                    No sets found.
+                </div>
+            
+            }
+            <AddSetModal
+                isAddSetModalOpen={isAddSetModalOpen}
+                handleClose={handleClose}
+                handleAddSet={handleAddSet}
+            />
         </div>
     )
 }

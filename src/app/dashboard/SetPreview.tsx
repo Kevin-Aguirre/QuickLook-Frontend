@@ -37,25 +37,25 @@ const SetPreview : React.FC<SetPreviewProps> = ({set, fetchUser}) => {
 
 
     return (
-        <div className="bg-gray-300 my-3 p-2 rounded flex flex-row justify-between items-center">
+        <div className="bg-gray-100 my-3 p-4 rounded flex flex-row justify-between items-center">
             <div className="">
-                <div className="text-2xl">
+                <div className="text-5xl ">
                     {set.phraseSetName}
                 </div>
-                <div>
+                <div className="text-2xl mt-4">
                     Date created: {formattedDate}
                 </div>
             </div>
-            <div className="flex flex-row h-10">
+            <div className="flex flex-row">
                 <button
-                    className="flex items-center p-4 mx-2 bg-gray-200" 
+                    className="flex items-center text-3xl p-8 mx-2 bg-green-300 rounded" 
                     onClick={handleStudyButton}
                 >
                     Study
                 </button>
                 
                 <button
-                    className="flex items-center p-4 mx-2 bg-gray-200" 
+                    className="flex items-center text-3xl p-8 mx-2 bg-red-300 rounded" 
                     onClick={handleDeleteButton}
                 >
                     Delete

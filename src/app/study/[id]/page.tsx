@@ -1,48 +1,53 @@
 "use client"
 import React, {useState, useEffect} from "react"
-import EmptyNavbar from "@/components/EmptyNavbar"
-import StudyBody from "./StudyBody"
-import { User, PhraseSet } from "@/lib/interfaces"
 import { useParams } from "next/navigation"
+
+import { PhraseSet, PhraseDTO } from "@/lib/interfaces"
+import Navbar from "@/components/Navbar"
+import StudyBody from "./StudyBody"
+import EmptySetComponent from "./EmptySetComponent"
+import Loading from "@/components/Loading"
+
 
 const Page : React.FC = () => {
     const [set, setSet] = useState<PhraseSet>()
-    const {id} = useParams();
-    console.log(id);
+    let {id} = useParams();
+    id = String(id);
     
-
-    // console.log(set);
-
-    useEffect(() => {
-        const fetchSet = async () => {
-          const response = await fetch(`http://localhost:8080/api/v1/set/${id}`);        
-          console.log(response);
-          
-          const data: PhraseSet = await response.json();
-          setSet(data);
-          
-        };
-    
-        fetchSet();
-      }, []);
+    const fetchSet = async () => {
+        const response = await fetch(`http://localhost:8080/api/v1/set/${id}`);        
+        console.log(response);
+        
+        const data: PhraseSet = await response.json();
+        setSet(data);
+        
+    };
   
-    
-
+    useEffect(() => {
+        fetchSet()
+    }, []);
+  
     return (
         <>
-            <EmptyNavbar/>
-            {set ?  (
+            <Navbar/>
+            {set ? (
+                set.phrases.length
+                ?
                 <StudyBody
                     phraseSetId={set.phraseSetId}
                     phraseSetName={set.phraseSetName}
                     phrases={set.phrases}
                     dateAdded={set.dateAdded}
+                    fetchSet={fetchSet}
                 />
-            ) : (
-                <div>
-                    fuck
-                </div>
-            )}
+                :
+                <EmptySetComponent
+                    id={id}
+                    fetchSet={fetchSet}
+                />
+
+            ) : <Loading/> 
+            }
         </>
 
     )

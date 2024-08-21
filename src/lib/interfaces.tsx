@@ -5,6 +5,8 @@ export interface Phrase {
     summary: string
 }
 
+
+
 export interface PhraseSet {
     phraseSetId: number;
     phraseSetName: string;
@@ -22,4 +24,12 @@ export interface User {
   email: string;
   passwordHash: string;
   phraseSets: PhraseSet[];
+}
+
+export interface PhraseDTO {
+  phrase: String;
+  summary: String;
+  dateAdded: Date;
+  userId: Number;
+  setId: Number;
 }

@@ -22,14 +22,16 @@ const ChangePhraseButton : React.FC<ChangePhraseButtonProps> = ({phraseIndex, se
 
     return (
         
-        <button className="bg-gray-200" onClick={handleClick}>
-            {
-                increase
-                ?
-                ">"
-                :
-                "<"
-            }
+        <button className="bg-red-200 h-full px-2 text-3xl text-white" onClick={handleClick}>
+            <strong>
+                {
+                    increase
+                    ?
+                    ">"
+                    :
+                    "<"
+                }
+            </strong>
         </button>
     )
 }

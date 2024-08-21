@@ -1,28 +1,65 @@
 "use client"
 import React, {use, useState} from "react"
-import { PhraseSet } from "@/lib/interfaces"
+import { Phrase, PhraseDTO } from "@/lib/interfaces"
 import Card from "./Card"
 import ChangePhraseButton from "./ChangePhraseButton"
+import AddPhraseModal from "./AddPhraseModal"
+import Loading from "@/components/Loading"
 
+interface StudyBodyProps {
+    phraseSetId : Number
+    phraseSetName : String, 
+    phrases : Phrase[], 
+    dateAdded : String,
+    fetchSet: Function
+}
 
-const StudyBody : React.FC<PhraseSet> = ({phraseSetId, phraseSetName, phrases, dateAdded}) => {
-    const [phraseIndex, setPhraseIndex] = useState<number>(0)
-
-    // store current phrase and current index 
-    // index + phrases + inc/dec flag can be passed to buttons (index to determine which is next/prev, inc/dec flag to determine direction, phrases to determine length so it is known if start of list or end)
-    // current index and phrase passed to card
-
-
+const StudyBody : React.FC<StudyBodyProps> = ({phraseSetId, phraseSetName, phrases, dateAdded, fetchSet}) => {
     
+    const [phraseIndex, setPhraseIndex] = useState<number>(0)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
+    const [isAddPhraseModalOpen, setIsAddPhraseModalOpen] = React.useState<boolean>(false);
+    const handleOpen = () => {setIsAddPhraseModalOpen(true)}
+    const handleClose = () => {setIsAddPhraseModalOpen(false)}
+    const handleAddPhrase = async (newPhraseName: string) => {
+        setIsLoading(true);
+        const req : PhraseDTO = {
+            phrase: newPhraseName,
+            summary: "",
+            dateAdded: new Date(),
+            userId: Number(localStorage.getItem('token')),
+            setId: phraseSetId
+        }
+
+        const res = await fetch("http://localhost:8080/api/v1/phrase", {
+            method: "POST",
+            headers : {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(req)
+        })
+
+        if (res.ok) {
+            alert('successfully added phrase')
+            fetchSet()
+            setPhraseIndex(phrases.length)
+        } else {
+            alert('failed')
+        }
+        setIsLoading(false);
+        
+    }
 
     return (
-        <div className="p-4 h-4/5 bg-blue-400 mx-8 my-2 flex flex-col items-center">
-            <div className="bg-yellow-200 p-1 flex fle?? ''x-row justify-around text-2xl">
-                {phraseSetName}
+        <div className="p-4 h-9/10 bg-gray-400 mx-8 my-2 flex flex-col items-center">
+            <div className="text-white p-4 flex flex-row justify-around text-6xl">
+                <strong>
+                    {phraseSetName}
+                </strong>
             </div>
             <hr/> 
-            <div className="w-full h-full bg-blue-100 flex flex-row items-center">
+            <div className="w-full h-full bg-indigo-900 flex flex-row justify-center items-center">
                 <ChangePhraseButton
                     phraseIndex={phraseIndex}
                     setPhraseIndex={setPhraseIndex}
@@ -40,6 +77,26 @@ const StudyBody : React.FC<PhraseSet> = ({phraseSetId, phraseSetName, phrases, d
                     increase={true}
                 />
             </div>
+            <div className="bg-blue-100 w-full text-center py-1 text-4xl py-4">
+                <strong>{phraseIndex + 1} / {phrases.length}</strong>
+                
+            </div>
+            <button 
+                className="bg-green-400 w-full rounded text-white font-bold p-2 text-2xl my-2"
+                onClick={handleOpen}
+            >
+                Add Phrase to Set
+            </button>
+            <AddPhraseModal
+                isAddPhraseModalOpen={isAddPhraseModalOpen}
+                handleClose={handleClose}
+                handleAddPhrase={handleAddPhrase}
+            />
+            {
+                isLoading
+                &&
+                <Loading/>
+            }
             
         </div>
     ) 
