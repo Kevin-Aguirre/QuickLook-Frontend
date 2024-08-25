@@ -16,25 +16,16 @@ bun dev
 ```
 
 
-## Snapshots
-
-### Dashboard
-
+## Screenshots & Demo
+### Screenshots
 ![Alt text](./src/media/readme/dashboard.png)
-
-### Empty Set
-
 ![Alt text](./src/media/readme/emptyset.png)
-
-### Study
-
 ![Alt text](./src/media/readme/summary.png)
-
-
-### Login / Register
-
 ![Alt text](./src/media/readme/login.png)
 ![Alt text](./src/media/readme/register.png)
+
+### Video Demo
+[Video]([https://www.youtube.com/](https://www.amazon.com/))
 
 ## Technologies Used 
 - React.js
