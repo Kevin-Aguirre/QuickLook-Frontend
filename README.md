@@ -25,7 +25,7 @@ bun dev
 ![Alt text](./src/media/readme/register.png)
 
 ### Video Demo
-[Video]([https://www.youtube.com/](https://www.amazon.com/))
+[Video](https://commonmark.org/help/)
 
 ## Technologies Used 
 - React.js
