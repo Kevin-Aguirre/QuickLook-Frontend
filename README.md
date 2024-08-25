@@ -1,7 +1,5 @@
 # QuickLook Frontend
-
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) that uses the [OpenAI API](https://platform.openai.com/) to generate a short summary about a phrase or term that
-users would like to learn more about. Users can organize phrases they would like to learn about by organizing them into study sets. Make sure to check out the [QuickLook Backend](https://github.com/Kevin-Aguirre/QuickLook-Backend).
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) that uses the [OpenAI API](https://platform.openai.com/) to generate a short summary about a phrase or term that users would like to learn more about. Users can organize phrases they would like to learn about by organizing them into study sets. Make sure to check out the [QuickLook Backend](https://github.com/Kevin-Aguirre/QuickLook-Backend).
 
 ## Getting Started
 
