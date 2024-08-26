@@ -33,3 +33,7 @@ bun dev
 - JavaScript
 - TypeScript
 - Tailwind CSS
+
+## Porfolio Properties
+- showOnPortfolio = true
+- path = src/media/readme/
