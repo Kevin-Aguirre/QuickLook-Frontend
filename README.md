@@ -1,5 +1,5 @@
-# QuickLook Frontend
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) that uses the [OpenAI API](https://platform.openai.com/) to generate a short summary about a phrase or term that users would like to learn more about. Users can organize phrases they would like to learn about by organizing them into study sets. Make sure to check out the [QuickLook Backend](https://github.com/Kevin-Aguirre/QuickLook-Backend).
+# QuickLook
+QuickLook is a full-stack project made using Next.js, React.js, Spring Boot, and PostgreSQL. This application is for when users are scrolling online and they find a term they would like to learn more about. Instead of clicking multiple links and searching for an explanation, QuickLook users OpenAI's API to have ChatGPT generate a summary. Users can organize phrases into sets.
 
 ## Getting Started
 
