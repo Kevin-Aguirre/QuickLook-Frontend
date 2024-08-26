@@ -34,6 +34,6 @@ bun dev
 - TypeScript
 - Tailwind CSS
 
-## Porfolio Properties
+## Portfolio Properties
 - showOnPortfolio = true
 - path = src/media/readme/
