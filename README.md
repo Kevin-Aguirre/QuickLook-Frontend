@@ -24,9 +24,6 @@ bun dev
 ![Alt text](./src/media/readme/login.png)
 ![Alt text](./src/media/readme/register.png)
 
-### Video Demo
-[Video](https://commonmark.org/help/)
-
 ## Technologies Used 
 - React.js
 - Next.js
